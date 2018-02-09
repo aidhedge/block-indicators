@@ -21,7 +21,7 @@ def interest_rate(_country=None):
         try:
             interest = float(interest)
         except Exception as e:
-            print(e)
+            LOG.console(e)
             interest = None
             
         data.append(dict(country=country, interest=interest))
@@ -45,7 +45,7 @@ def inflation(_country=None):
         try:
             inflation = float(inflation)
         except Exception as e:
-            print(e)
+            LOG.console(e)
             inflation = None
             
         data.append(dict(country=country, inflation=inflation))
