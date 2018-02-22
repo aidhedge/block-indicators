@@ -24,9 +24,13 @@ def interest_rate(_country=None):
             LOG.console(e)
             interest = None
             
-        data.append(dict(country=country, interest=interest))
-    if country:
-        return [d for d in data if d['country'].lower() == _country.lower()][0]
+        data.append(dict(country=country, rate=interest))
+    if _country:
+        try:
+            _country = [x.lower() for x in _country]
+            return [d for d in data if d['country'].lower() in _country][0]
+        except:
+            return None
     else:
         return data
 
@@ -48,10 +52,14 @@ def inflation(_country=None):
             LOG.console(e)
             inflation = None
             
-        data.append(dict(country=country, inflation=inflation))
-    LOG.console(data)
-    if country:
-        return [d for d in data if d['country'].lower() == _country.lower()][0]
+        data.append(dict(country=country, rate=inflation))
+    if _country:
+        try:
+            _country = [x.lower() for x in _country]
+            return [d for d in data if d['country'].lower() in _country][0]
+        except:
+            return None
     else:
         return data
+
 

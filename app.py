@@ -35,7 +35,7 @@ def handle_invalid_usage(error):
                         } '''
 
 payload_input_schema = {
-                    'country': {'type': 'string', 'required': False}
+                    'country': {'type': 'list', 'required': False}
                     }
 
 
@@ -66,11 +66,12 @@ def simulate(indicator):
         raise malformedJson("Payload present but malformed: {}".format(payload))
     if v(payload):
         if indicator == 'interest':
-            res = indicators.interest_rate(payload['country'])
+            data = indicators.interest_rate(payload['country'])
         elif indicator == 'inflation':
-            res = indicators.inflation(payload['country'])
+            data = indicators.inflation(payload['country'])
         else:
             raise indicatorNotPresent("Didn't find indicator '{}'".format(indicator))
+        res = dict(success=True,payload=data)
         return json.dumps(res)
     else:
         raise payloadNotMatchingSchema("Payload didn't match schema ({}\n{})".format(payload_input_schema, v.errors))
